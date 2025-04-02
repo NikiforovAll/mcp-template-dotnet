@@ -1,0 +1,19 @@
+<Project>
+  <!-- <Import Project="..\Directory.Build.props" /> -->
+
+  <PropertyGroup>
+    <PackageProjectUrl>https://github.com/NikiforovAll/mcp-template-dotnet</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/NikiforovAll/mcp-template-dotnet</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageIcon>logo.png</PackageIcon>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <RepoRoot>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)'))</RepoRoot>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="$(RepoRoot)\assets\logo.png" Pack="true" PackagePath="\" />
+  </ItemGroup>
+</Project>

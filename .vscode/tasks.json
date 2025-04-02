@@ -1,0 +1,105 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "inputs": [
+        {
+            "id": "relativePath",
+            "type": "promptString",
+            "default": ".",
+            "description": "Relateve path of test project..."
+        }
+    ],
+    "tasks": [
+        {
+            "label": "build",
+            "command": "dotnet",
+            "type": "shell",
+            "args": [
+                "build"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": false
+            },
+            "presentation": {
+                "reveal": "always",
+                "revealProblems": "onProblem"
+            },
+            // "problemMatcher": "$msCompile",
+            "detail": "Builds the solution ⚙️",
+            "icon": {
+                "color": "terminal.ansiGreen"
+            }
+        },
+        {
+            "label": "cake:build",
+            "command": "dotnet",
+            "type": "shell",
+            "args": [
+                "cake",
+                "--target",
+                "build"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "presentation": {
+                "reveal": "always",
+                "revealProblems": "onProblem"
+            },
+            "problemMatcher": "$msCompile",
+            "detail": "Builds the solution ⚙️",
+            "icon": {
+                "color": "terminal.ansiGreen"
+            }
+        },
+        {
+            "label": "cake:test",
+            "command": "dotnet",
+            "type": "shell",
+            "args": [
+                "cake",
+                "--target",
+                "test"
+            ],
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            },
+            "presentation": {
+                "reveal": "always",
+                "revealProblems": "onProblem"
+            },
+            "problemMatcher": "$msCompile",
+            "detail": "Tests the solution 🧪",
+            "icon": {
+                "color": "terminal.ansiYellow"
+            }
+        },
+        {
+            "label": "cake:pack",
+            "command": "dotnet",
+            "type": "shell",
+            "args": [
+                "cake",
+                "--target",
+                "pack"
+            ],
+            "group": {
+                "kind": "none",
+                "isDefault": false
+            },
+            "presentation": {
+                "reveal": "always",
+                "revealProblems": "onProblem"
+            },
+            "problemMatcher": "$msCompile",
+            "detail": "Packs the solution 📦",
+            "icon": {
+                "color": "terminal.ansiBlue"
+            }
+        }
+    ]
+}
