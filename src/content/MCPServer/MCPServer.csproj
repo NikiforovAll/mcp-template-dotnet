@@ -7,6 +7,20 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+
+  <PropertyGroup>
+    <PackAsTool>true</PackAsTool>
+    <ToolName>MCPServer</ToolName>
+    <ToolCommandName>MCPServer</ToolCommandName>
+    <IsPackable>true</IsPackable>
+  </PropertyGroup>
+
+  <PropertyGroup Label="Package">
+    <Product>MCPServer</Product>
+    <Description></Description>
+    <PackageTags></PackageTags>
+  </PropertyGroup>
+
   <!-- Uncomment to enable container publishing - https://learn.microsoft.com/en-us/dotnet/core/containers/sdk-publish -->
   <!-- <PropertyGroup>
     <EnableSdkContainerSupport>true</EnableSdkContainerSupport>

@@ -14,11 +14,7 @@
   <a href="https://github.com/orgs/modelcontextprotocol/discussions">Discussions</a>
 </p>
 
-The Model Context Protocol (MCP) is an open protocol that enables seamless integration between LLM applications and external data sources and tools. Whether you're building an AI-powered IDE, enhancing a chat interface, or creating custom AI workflows, MCP provides a standardized way to connect LLMs with the context they need.
-
-## Template
-
-This repository contains a template for creating a Model Context Protocol (MCP) application in .NET. It provides a basic structure and example code to help you get started with building your own MCP-enabled applications.
+This repository contains a [template](https://www.nuget.org/packages/Nall.ModelContextProtocol.Template) for creating a Model Context Protocol (MCP) application in .NET. It provides a basic structure and example code to help you get started with building your own MCP-enabled applications.
 
 ## Getting Started
 
@@ -103,3 +99,31 @@ Open inspector in your browser and test the server:
 </p>
 
 
+### Distribute as .NET Tool
+
+Pack from the project directory:
+
+```bash
+dotnet pack -o Artefacts -c Release
+```
+
+Install the tool globally:
+
+```bash
+dotnet tool install --global --add-source ./Artefacts MyAwesomeMCPServer
+```
+
+Now, after you installed this tool globally, you can run it from anywhere on your system. The tool will be available as `MyAwesomeMCPServer` (or `myawesomemcpserver`) in your terminal.
+
+💡 You can also create local tool manifest and install MCPs as tools locally.
+
+Run the inspector:
+
+```bash
+npx @modelcontextprotocol/inspector -e DOTNET_ENVIRONMENT=Production myawesomemcpserver
+```
+
+## Reference
+
+- <https://learn.microsoft.com/en-us/dotnet/core/tools/custom-templates>
+- <https://learn.microsoft.com/en-us/dotnet/core/tools/global-tools>
