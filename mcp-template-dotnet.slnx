@@ -4,7 +4,11 @@
     <Platform Name="x64" />
     <Platform Name="x86" />
   </Configurations>
+  <Folder Name="/samples/">
+    <Project Path="samples/AppHost/AppHost.csproj" />
+  </Folder>
   <Folder Name="/src/">
+    <Project Path="src/Nall.ModelContextProtocol.Inspector.Aspire.Hosting/Nall.ModelContextProtocol.Inspector.Aspire.Hosting.csproj" />
     <Project Path="src/templates/templates.csproj" />
   </Folder>
 </Solution>
