@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -10,13 +10,13 @@
 
   <PropertyGroup>
     <PackAsTool>true</PackAsTool>
-    <ToolName>MCPServer</ToolName>
-    <ToolCommandName>MCPServer</ToolCommandName>
+    <ToolName>MCPServerSSE</ToolName>
+    <ToolCommandName>MCPServerSSE</ToolCommandName>
     <IsPackable>true</IsPackable>
   </PropertyGroup>
 
   <PropertyGroup Label="Package">
-    <Product>MCPServer</Product>
+    <Product>MCPServerSSE</Product>
     <Description></Description>
     <PackageTags></PackageTags>
   </PropertyGroup>
@@ -32,6 +32,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.3" />
     <PackageReference Include="ModelContextProtocol" Version="0.1.0-preview.4" />
+    <PackageReference Include="ModelContextProtocol.AspNetCore" Version="0.1.0-preview.4" />
   </ItemGroup>
 
   <ItemGroup>

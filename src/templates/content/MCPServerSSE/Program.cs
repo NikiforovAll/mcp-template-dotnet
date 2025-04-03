@@ -1,13 +1,13 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
+﻿using ModelContextProtocol.AspNetCore;
 
-var builder = Host.CreateApplicationBuilder(args);
+var builder = WebApplication.CreateBuilder(args);
 builder.Services
     .AddMcpServer()
-    .WithStdioServerTransport()
     .WithToolsFromAssembly();
 
-await builder.Build().RunAsync();
+var app = builder.Build();
+app.MapMcp();
+app.Run();
 
 [McpServerToolType]
 public static class EchoTool

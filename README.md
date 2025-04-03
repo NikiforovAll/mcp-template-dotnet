@@ -30,9 +30,10 @@ Verify installation:
 dotnet new list mcp
 # These templates matched your input: 'mcp'
 
-# Template Name  Short Name  Language  Tags
-# -------------  ----------  --------  -------------
-# MCP Server     mcp-server  [C#]      dotnet/ai/mcp
+# Template Name   Short Name      Language  Tags
+# --------------  --------------  --------  -------------
+# MCP Server      mcp-server      [C#]      dotnet/ai/mcp
+# MCP Server SSE  mcp-server-sse  [C#]      dotnet/ai/mcp
 ```
 
 Verify output:
