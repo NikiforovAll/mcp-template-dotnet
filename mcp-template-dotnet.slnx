@@ -5,6 +5,6 @@
     <Platform Name="x86" />
   </Configurations>
   <Folder Name="/src/">
-    <Project Path="src/templates.csproj" />
+    <Project Path="src/templates/templates.csproj" />
   </Folder>
 </Solution>
