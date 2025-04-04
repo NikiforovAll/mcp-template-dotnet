@@ -1,11 +1,18 @@
 {
   "$schema": "https://json.schemastore.org/launchsettings.json",
   "profiles": {
-    "mcp": {
+    "dev": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "environmentVariables": {
         "DOTNET_ENVIRONMENT": "Development"
+      }
+    },
+    "inspector": {
+      "commandName": "Project",
+      "dotnetRunMessages": false,
+      "environmentVariables": {
+        "DOTNET_ENVIRONMENT": "Production"
       }
     }
   }
