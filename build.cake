@@ -11,8 +11,9 @@ Task("Clean")
     .Does(() =>
     {
         CleanDirectory(artefactsDirectory);
-        DeleteDirectories(GetDirectories("**/bin"), new DeleteDirectorySettings() { Force = true, Recursive = true });
-        DeleteDirectories(GetDirectories("**/obj"), new DeleteDirectorySettings() { Force = true, Recursive = true });
+        // TODO: removes bin folder for client code
+        // DeleteDirectories(GetDirectories("**/bin"), new DeleteDirectorySettings() { Force = true, Recursive = true });
+        // DeleteDirectories(GetDirectories("**/obj"), new DeleteDirectorySettings() { Force = true, Recursive = true });
     });
 
 Task("Restore")

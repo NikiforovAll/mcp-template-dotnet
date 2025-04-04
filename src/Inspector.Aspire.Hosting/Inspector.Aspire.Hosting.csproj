@@ -17,6 +17,15 @@
 
   <ItemGroup>
     <PackageReference Include="Aspire.Hosting" Version="9.1.0" />
+    <PackageReference Include="Aspire.Hosting.NodeJS" Version="9.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="inspector/**">
+      <Pack>true</Pack>
+      <PackagePath>inspector</PackagePath>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>

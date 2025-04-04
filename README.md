@@ -16,6 +16,11 @@
 
 This repository contains a [template](https://www.nuget.org/packages/Nall.ModelContextProtocol.Template) for creating a Model Context Protocol (MCP) application in .NET. It provides a basic structure and example code to help you get started with building your own MCP-enabled applications.
 
+| Package                                              | Version                                                                                                                                                                          | Description                |
+| ---------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------- |
+| `Nall.ModelContextProtocol.Template`                 | [![Nuget](https://img.shields.io/nuget/v/Nall.ModelContextProtocol.Template.svg)](https://nuget.org/packages/Nall.ModelContextProtocol.Template)                                 | Templates                  |
+| `Nall.ModelContextProtocol.Inspector.Aspire.Hosting` | [![Nuget](https://img.shields.io/nuget/v/Nall.ModelContextProtocol.Inspector.Aspire.Hosting.svg)](https://nuget.org/packages/Nall.ModelContextProtocol.Inspector.Aspire.Hosting) | Aspire Hosting Integration |
+
 ## Getting Started
 
 ### Install:
@@ -122,6 +127,33 @@ Run the inspector:
 
 ```bash
 npx @modelcontextprotocol/inspector -e DOTNET_ENVIRONMENT=Production myawesomemcpserver
+```
+
+## Run with Aspire
+
+### In `Stdio` mode
+
+In `AppHost/Program.cs`:
+
+```csharp
+var builder = DistributedApplication.CreateBuilder(args);
+
+builder.AddMCPInspector().WithStdio<Projects.MCPServer>();
+
+builder.Build().Run();
+```
+
+### In `SSE` mode
+
+In `AppHost/Program.cs`:
+
+```csharp
+var builder = DistributedApplication.CreateBuilder(args);
+
+var mcp = builder.AddProject<Projects.MCPServerSSE>("server");
+builder.AddMCPInspector().WithSSE(mcp);
+
+builder.Build().Run();
 ```
 
 ## Reference

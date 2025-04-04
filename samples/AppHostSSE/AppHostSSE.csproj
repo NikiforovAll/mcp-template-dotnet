@@ -19,7 +19,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\Inspector.Aspire.Hosting\Inspector.Aspire.Hosting.csproj"
       IsAspireProjectResource="false" />
-    <ProjectReference Include="..\..\src\templates\content\MCPServer\MCPServer.csproj" />
+    <ProjectReference Include="..\..\src\templates\content\MCPServerSSE\MCPServerSSE.csproj" />
   </ItemGroup>
 
 </Project>

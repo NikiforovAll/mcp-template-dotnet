@@ -1,0 +1,3 @@
+[submodule "src/Nall.ModelContextProtocol.Inspector.Aspire.Hosting/inspector"]
+	path = src/Nall.ModelContextProtocol.Inspector.Aspire.Hosting/inspector
+	url = https://github.com/modelcontextprotocol/inspector.git

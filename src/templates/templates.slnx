@@ -1,6 +1,0 @@
-<Solution>
-  <Folder Name="/content/">
-    <Project Path="content/MCPServer/MCPServer.csproj" />
-    <Project Path="content/MCPServerSSE/MCPServerSSE.csproj" />
-  </Folder>
-</Solution>

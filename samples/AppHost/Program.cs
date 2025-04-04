@@ -1,7 +1,5 @@
 var builder = DistributedApplication.CreateBuilder(args);
 
-var mcp = builder.AddProject<Projects.MCPServer>("server");
-
-builder.AddMCPInspector().WithSSE(mcp);
+builder.AddMCPInspector().WithStdio<Projects.MCPServer>();
 
 builder.Build().Run();
