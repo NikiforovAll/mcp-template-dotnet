@@ -9,7 +9,7 @@ namespace Aspire.Hosting;
 /// </summary>
 public static class MCPInspectorBuilderExtensions
 {
-    private const int DefaultContainerPort = 5173; // 6274;
+    private const int DefaultContainerPort = 6274;
 
     /// <summary>
     /// Adds a MCPInspector resource to the application model. A container is used for local development.
