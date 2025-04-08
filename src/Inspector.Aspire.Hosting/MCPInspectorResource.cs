@@ -16,18 +16,25 @@ public class MCPInspectorResource
     /// Initializes a new instance of the <see cref="MCPInspectorResource"/> class.
     /// </summary>
     /// <param name="name">The name of the resource.</param>
-    public MCPInspectorResource(string name, string? tag = null, int? port = null)
+    public MCPInspectorResource(
+        string name,
+        string? tag = null,
+        int? serverPort = 6277,
+        int? clientPort = 6274
+    )
         : base(name)
     {
         PrimaryEndpoint = new(this, PrimaryEndpointName);
-        Port = port;
+        ServerPort = serverPort;
+        ClientPort = clientPort;
     }
 
     /// <summary>
     /// Gets the primary endpoint for the MCPInspector server.
     /// </summary>
     public EndpointReference PrimaryEndpoint { get; }
-    public int? Port { get; }
+    public int? ServerPort { get; }
+    public int? ClientPort { get; }
     public string? Tag { get; set; }
     public string BaseName { get; init; }
 }

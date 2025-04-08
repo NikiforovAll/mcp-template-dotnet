@@ -14,7 +14,7 @@ dotnet run
 Run the inspector:
 
 ```bash
-npx @modelcontextprotocol/inspector"
+npx @modelcontextprotocol/inspector
 ```
 
 ## Distribute as .NET Tool

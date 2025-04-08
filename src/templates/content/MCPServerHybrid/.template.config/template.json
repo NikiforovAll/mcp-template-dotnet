@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json.schemastore.org/template",
+  "author": "Oleksii Nikiforov",
+  "classifications": [
+    "dotnet",
+    "ai",
+    "mcp"
+  ],
+  "identity": "Nall.ModelContextProtocol.Server.Template.Hybrid",
+  "name": "MCP Server Hybrid",
+  "description": "A template for creating a new Model Context Protocol Hybrid server project.",
+  "shortName": "mcp-server-hybrid",
+  "sourceName": "MCPServerHybrid",
+  "preferNameDirectory": true,
+  "defaultName": "MCPServerHybrid",
+  "tags": {
+    "language": "C#",
+    "type": "project"
+  },
+  "guids": [],
+  "postActions": [],
+  "symbols": {},
+  "sources": []
+}
