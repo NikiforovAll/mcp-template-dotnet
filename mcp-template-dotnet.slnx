@@ -6,11 +6,13 @@
   </Configurations>
   <Folder Name="/samples/">
     <Project Path="samples/AppHost/AppHost.csproj" />
+    <Project Path="samples/AppHostHybrid/AppHostHybrid.csproj" />
     <Project Path="samples/AppHostSSE/AppHostSSE.csproj" />
   </Folder>
   <Folder Name="/src/">
     <Project Path="src/Inspector.Aspire.Hosting/Inspector.Aspire.Hosting.csproj" />
     <Project Path="src/templates/content/MCPServer/MCPServer.csproj" />
+    <Project Path="src/templates/content/MCPServerHybrid/MCPServerHybrid.csproj" />
     <Project Path="src/templates/content/MCPServerSSE/MCPServerSSE.csproj" />
     <Project Path="src/templates/templates.csproj" />
   </Folder>

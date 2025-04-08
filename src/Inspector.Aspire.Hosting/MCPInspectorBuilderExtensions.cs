@@ -1,6 +1,8 @@
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using Aspire.Hosting.ApplicationModel;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace Aspire.Hosting;
 
@@ -23,12 +25,16 @@ public static class MCPInspectorBuilderExtensions
         this IDistributedApplicationBuilder builder,
         string name = "mcp-inspector",
         string? tag = null,
-        int? port = null
+        int? serverPort = 6277,
+        int? clientPort = 6274
     )
     {
         ArgumentNullException.ThrowIfNull(builder);
 
-        var server = new MCPInspectorResource(name + "-resource", tag, port) { BaseName = name };
+        var server = new MCPInspectorResource(name + "-resource", tag, serverPort, clientPort)
+        {
+            BaseName = name,
+        };
 
         return builder.AddResource(server);
     }
@@ -42,20 +48,7 @@ public static class MCPInspectorBuilderExtensions
             System.Reflection.Assembly.GetExecutingAssembly().Location
         );
 
-        var nodeBuild = builder
-            .ApplicationBuilder.AddNpmApp(
-                builder.Resource.Name + "-node-build",
-                Path.Combine(outputDirectory!, "inspector"),
-                "build"
-            )
-            .WithInitialState(
-                new CustomResourceSnapshot
-                {
-                    ResourceType = "MCP Inspector",
-                    State = KnownResourceStates.Hidden,
-                    Properties = [],
-                }
-            );
+        var nodeBuild = TryBuildInspector(builder, outputDirectory);
 
         var node = builder
             .ApplicationBuilder.AddNpmApp(
@@ -64,20 +57,10 @@ public static class MCPInspectorBuilderExtensions
                 "start",
                 []
             )
-            .WithHttpEndpoint(
-                port: builder.Resource.Port ?? DefaultContainerPort,
-                name: MCPInspectorResource.PrimaryEndpointName
-            )
+            .WithEnvironment("SERVER_PORT", builder.Resource.ServerPort.ToString())
+            .WithEnvironment("CLIENT_PORT", builder.Resource.ClientPort.ToString())
             .WaitForCompletion(nodeBuild)
             .ExcludeFromManifest();
-
-        builder.ApplicationBuilder.Eventing.Subscribe<BeforeResourceStartedEvent>(
-            nodeBuild.Resource,
-            async (@event, cancellationToken) =>
-            {
-                await NpmInstallAsync(outputDirectory!);
-            }
-        );
 
         node.WithParentRelationship(builder.Resource);
 
@@ -92,28 +75,6 @@ public static class MCPInspectorBuilderExtensions
         );
 
         return builder;
-
-        // var primaryEndpoint = project.GetEndpoint("http");
-        // builder
-        //     .WithHttpEndpoint(
-        //         port: builder.Resource.Port ?? DefaultContainerPort,
-        //         targetPort: DefaultContainerPort,
-        //         name: MCPInspectorResource.PrimaryEndpointName
-        //     )
-        //     .WithImage(
-        //         MCPInspectorContainerImageTags.Image,
-        //         builder.Resource.Tag ?? MCPInspectorContainerImageTags.Tag
-        //     )
-        //     .WithImageRegistry(MCPInspectorContainerImageTags.Registry)
-        //     .WithEnvironment(
-        //         "SSE_URL",
-        //         ReferenceExpression.Create(
-        //             $"{primaryEndpoint.Scheme}://{primaryEndpoint.Property(EndpointProperty.Host)}:{primaryEndpoint.Property(EndpointProperty.Port)}/sse"
-        //         )
-        //     )
-        //     .WithReference(project);
-
-        // return builder;
     }
 
     public static IResourceBuilder<MCPInspectorResource> WithStdio<TProject>(
@@ -124,21 +85,7 @@ public static class MCPInspectorBuilderExtensions
         var outputDirectory = Path.GetDirectoryName(
             System.Reflection.Assembly.GetExecutingAssembly().Location
         );
-
-        var nodeBuild = builder
-            .ApplicationBuilder.AddNpmApp(
-                builder.Resource.Name + "-node-build",
-                Path.Combine(outputDirectory!, "inspector"),
-                "build"
-            )
-            .WithInitialState(
-                new CustomResourceSnapshot
-                {
-                    ResourceType = "MCP Inspector",
-                    State = KnownResourceStates.Hidden,
-                    Properties = [],
-                }
-            );
+        IResourceBuilder<NodeAppResource>? nodeBuild = TryBuildInspector(builder, outputDirectory);
 
         var node = builder
             .ApplicationBuilder.AddNpmApp(
@@ -146,53 +93,94 @@ public static class MCPInspectorBuilderExtensions
                 Path.Combine(outputDirectory!, "inspector"),
                 "start",
                 [
-                    "-e",
-                    "DOTNET_Logging__LogLevel__Default=None",
-                    "-e",
-                    "DOTNET_Logging__Console__LogToStandardErrorThreshold=Trace",
                     "dotnet",
                     "run",
                     "--project",
                     $"'{new TProject().ProjectPath}'",
-                    "--no-launch-profile",
                     "--verbosity",
                     "quiet",
+                    "--",
+                    "--stdio"
                 ]
             )
+            .WithEnvironment("SERVER_PORT", builder.Resource.ServerPort.ToString())
+            .WithEnvironment("CLIENT_PORT", builder.Resource.ClientPort.ToString())
             .WaitForCompletion(nodeBuild)
             .ExcludeFromManifest();
 
-        builder.ApplicationBuilder.Eventing.Subscribe<BeforeResourceStartedEvent>(
-            nodeBuild.Resource,
-            async (@event, cancellationToken) =>
-            {
-                await NpmInstallAsync(outputDirectory);
-            }
-        );
-
         node.WithParentRelationship(builder.Resource);
 
-        builder
-            .WithInitialState(
-                new CustomResourceSnapshot
-                {
-                    ResourceType = "MCP Inspector",
-                    // State = KnownResourceStates.Hidden,
-                    State = KnownResourceStates.Hidden,
-                    Properties = [],
-                }
-            )
-            .WithHttpEndpoint(name: MCPInspectorResource.PrimaryEndpointName);
+        builder.WithInitialState(
+            new CustomResourceSnapshot
+            {
+                ResourceType = "MCP Inspector",
+                // State = KnownResourceStates.Hidden,
+                State = KnownResourceStates.Hidden,
+                Properties = [],
+            }
+        );
 
         return builder;
     }
 
-    private static async Task NpmInstallAsync(string dir)
+    private static IResourceBuilder<NodeAppResource> TryBuildInspector(
+        IResourceBuilder<MCPInspectorResource> builder,
+        string? outputDirectory
+    )
     {
+        IResourceBuilder<NodeAppResource>? nodeBuild = null;
+        if (
+            builder
+                .ApplicationBuilder.Resources.OfType<NodeAppResource>()
+                .SingleOrDefault(x => x.Name == "inpector-node-build") is
+            { } existingNodeBuild
+        )
+        {
+            nodeBuild = builder.ApplicationBuilder.CreateResourceBuilder(existingNodeBuild);
+        }
+        else
+        {
+            nodeBuild = builder.ApplicationBuilder.AddNpmApp(
+                "inpector-node-build",
+                Path.Combine(outputDirectory!, "inspector"),
+                "build"
+            );
+            // .WithInitialState(
+            //     new CustomResourceSnapshot
+            //     {
+            //         ResourceType = "MCP Inspector",
+            //         State = KnownResourceStates.Hidden,
+            //         Properties = [],
+            //     }
+            // );
+
+            builder.ApplicationBuilder.Eventing.Subscribe<BeforeResourceStartedEvent>(
+                nodeBuild.Resource,
+                async (@event, cancellationToken) =>
+                {
+                    await NpmInstallAsync(outputDirectory!, @event.Services, nodeBuild);
+                }
+            );
+        }
+
+        return nodeBuild;
+    }
+
+    private static async Task NpmInstallAsync(
+        string dir,
+        IServiceProvider serviceProvider,
+        IResourceBuilder<NodeAppResource> nodeBuild
+    )
+    {
+        var logger = serviceProvider
+            .GetRequiredService<ResourceLoggerService>()
+            .GetLogger(nodeBuild.Resource);
+
         var npmPath = Path.Combine(dir, "inspector", "node_modules");
 
         if (!Directory.Exists(npmPath))
         {
+            logger.LogInformation("Installing NPM modules...");
             var packageLockPath = Path.Combine(dir, "inspector", "package-lock.json");
             if (File.Exists(packageLockPath))
             {
@@ -214,9 +202,31 @@ public static class MCPInspectorBuilderExtensions
                 },
             };
 
+            // Redirect the output and error streams to the logger
+            process.OutputDataReceived += (sender, e) =>
+            {
+                if (!string.IsNullOrEmpty(e.Data))
+                {
+                    logger.LogInformation(e.Data);
+                }
+            };
+            process.ErrorDataReceived += (sender, e) =>
+            {
+                if (!string.IsNullOrEmpty(e.Data))
+                {
+                    logger.LogError(e.Data);
+                }
+            };
+
             process.Start();
+            process.BeginOutputReadLine();
+            process.BeginErrorReadLine();
 
             await process.WaitForExitAsync();
+        }
+        else
+        {
+            logger.LogInformation("📦 NPM modules are already installed. If something is wrong consider AppHost cleanup");
         }
     }
 }

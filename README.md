@@ -35,11 +35,15 @@ Verify installation:
 dotnet new list mcp
 # These templates matched your input: 'mcp'
 
-# Template Name   Short Name      Language  Tags
-# --------------  --------------  --------  -------------
-# MCP Server      mcp-server      [C#]      dotnet/ai/mcp
-# MCP Server SSE  mcp-server-sse  [C#]      dotnet/ai/mcp
+# Template Name      Short Name         Language  Tags
+# -----------------  -----------------  --------  -------------
+# MCP Server         mcp-server         [C#]      dotnet/ai/mcp
+# MCP Server SSE     mcp-server-sse     [C#]      dotnet/ai/mcp
+# MCP Server Hybrid  mcp-server-hybrid  [C#]      dotnet/ai/mcp
 ```
+
+> [!INFO]
+> Based on my experience, it is convenient to be able to switch between mode, so I recommend using `mcp-server-hybrid` template. It allows you to run the server in both `Stdio` and `SSE` modes.
 
 Verify output:
 
