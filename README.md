@@ -42,7 +42,7 @@ dotnet new list mcp
 # MCP Server Hybrid  mcp-server-hybrid  [C#]      dotnet/ai/mcp
 ```
 
-> [!INFO]
+> [!TIP]
 > Based on my experience, it is convenient to be able to switch between mode, so I recommend using `mcp-server-hybrid` template. It allows you to run the server in both `Stdio` and `SSE` modes.
 
 Verify output:
