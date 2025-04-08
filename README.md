@@ -43,7 +43,7 @@ dotnet new list mcp
 ```
 
 > [!TIP]
-> Based on my experience, it is convenient to be able to switch between mode, so I recommend using `mcp-server-hybrid` template. It allows you to run the server in both `Stdio` and `SSE` modes.
+> It is convenient to switch between modes, so I recommend using the `mcp-server-hybrid` template. It allows you to run the server in both *Stdio* and *SSE* modes.
 
 Verify output:
 
