@@ -100,6 +100,57 @@
             "icon": {
                 "color": "terminal.ansiBlue"
             }
+        },
+        {
+            "label": "aspire:run:samples:Stdio",
+            "command": "aspire",
+            "type": "shell",
+            "args": [
+                "run",
+                "--project",
+                "samples/AppHost/AppHost.csproj"
+            ],
+            "icon": {
+                "id": "rocket",
+                "color": "terminal.ansiMagenta"
+            },
+            "presentation": {
+                "reveal": "always"
+            }
+        },
+        {
+            "label": "aspire:run:samples:SSE",
+            "command": "aspire",
+            "type": "shell",
+            "args": [
+                "run",
+                "--project",
+                "samples/AppHostSSE/AppHostSSE.csproj"
+            ],
+            "icon": {
+                "id": "rocket",
+                "color": "terminal.ansiMagenta"
+            },
+            "presentation": {
+                "reveal": "always"
+            }
+        },
+        {
+            "label": "aspire:run:samples:Hybrid",
+            "command": "aspire",
+            "type": "shell",
+            "args": [
+                "run",
+                "--project",
+                "samples/AppHostHybrid/AppHostHybrid.csproj"
+            ],
+            "icon": {
+                "id": "rocket",
+                "color": "terminal.ansiMagenta"
+            },
+            "presentation": {
+                "reveal": "always"
+            }
         }
     ]
 }

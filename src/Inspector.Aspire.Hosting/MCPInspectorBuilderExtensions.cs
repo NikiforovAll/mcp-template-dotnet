@@ -57,8 +57,20 @@ public static class MCPInspectorBuilderExtensions
                 "start",
                 []
             )
-            .WithEnvironment("SERVER_PORT", builder.Resource.ServerPort.ToString())
-            .WithEnvironment("CLIENT_PORT", builder.Resource.ClientPort.ToString())
+            .WithHttpEndpoint(
+                isProxied: false,
+                port: builder.Resource.ServerPort,
+                env: "SERVER_PORT",
+                name: "server-proxy"
+            )
+            .WithHttpEndpoint(
+                isProxied: false,
+                port: builder.Resource.ClientPort,
+                env: "CLIENT_PORT",
+                name: "client"
+            )
+            .WithUrlForEndpoint("client", u => u.DisplayText = "MCP Inspector")
+            .WithUrlForEndpoint("server-proxy", u => u.DisplayText = "Server Proxy")
             .WaitForCompletion(nodeBuild)
             .ExcludeFromManifest();
 
@@ -73,6 +85,8 @@ public static class MCPInspectorBuilderExtensions
                 Properties = [],
             }
         );
+
+        builder.WithRelationship(project.Resource, "proxies");
 
         return builder;
     }
@@ -100,11 +114,23 @@ public static class MCPInspectorBuilderExtensions
                     "--verbosity",
                     "quiet",
                     "--",
-                    "--stdio"
+                    "--stdio",
                 ]
             )
-            .WithEnvironment("SERVER_PORT", builder.Resource.ServerPort.ToString())
-            .WithEnvironment("CLIENT_PORT", builder.Resource.ClientPort.ToString())
+            .WithHttpEndpoint(
+                isProxied: false,
+                port: builder.Resource.ServerPort,
+                env: "SERVER_PORT",
+                name: "server-proxy"
+            )
+            .WithHttpEndpoint(
+                isProxied: false,
+                port: builder.Resource.ClientPort,
+                env: "CLIENT_PORT",
+                name: "client"
+            )
+            .WithUrlForEndpoint("client", u => u.DisplayText = "MCP Inspector")
+            .WithUrlForEndpoint("server-proxy", u => u.DisplayText = "Server Proxy")
             .WaitForCompletion(nodeBuild)
             .ExcludeFromManifest();
 
@@ -226,7 +252,9 @@ public static class MCPInspectorBuilderExtensions
         }
         else
         {
-            logger.LogInformation("📦 NPM modules are already installed. If something is wrong consider AppHost cleanup");
+            logger.LogInformation(
+                "📦 NPM modules are already installed. If something is wrong consider AppHost cleanup"
+            );
         }
     }
 }
