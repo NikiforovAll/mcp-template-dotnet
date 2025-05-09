@@ -1,8 +1,6 @@
-﻿using ModelContextProtocol.AspNetCore;
-
-var builder = WebApplication.CreateBuilder(args);
-builder.Services
-    .AddMcpServer()
+﻿var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddMcpServer()
+    .WithHttpTransport()
     .WithToolsFromAssembly();
 
 var app = builder.Build();

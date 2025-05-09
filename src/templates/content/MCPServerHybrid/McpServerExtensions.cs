@@ -26,7 +26,7 @@ public static class McpServerExtensions
 
         var mcpBuilder = isStdio
             ? builder.Services.AddMcpServer().WithStdioServerTransport()
-            : builder.Services.AddMcpServer();
+            : builder.Services.AddMcpServer().WithHttpTransport();
 
         return mcpBuilder;
     }
