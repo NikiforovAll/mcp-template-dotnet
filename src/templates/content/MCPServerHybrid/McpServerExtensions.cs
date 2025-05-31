@@ -1,5 +1,3 @@
-using ModelContextProtocol.AspNetCore;
-
 namespace MCPServerHybrid;
 
 public static class McpServerExtensions

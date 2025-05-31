@@ -15,6 +15,13 @@
         "dotnet-csharpier"
       ],
       "rollForward": false
+    },
+    "aspire.cli": {
+      "version": "9.3.0-preview.1.25265.20",
+      "commands": [
+        "aspire"
+      ],
+      "rollForward": false
     }
   }
 }

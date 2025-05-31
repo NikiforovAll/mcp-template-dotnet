@@ -1,18 +1,16 @@
+namespace Aspire.Hosting;
+
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using Aspire.Hosting.ApplicationModel;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
-namespace Aspire.Hosting;
-
 /// <summary>
 /// Provides extension methods for adding MCPInspector resources to an <see cref="IDistributedApplicationBuilder"/>.
 /// </summary>
 public static class MCPInspectorBuilderExtensions
 {
-    private const int DefaultContainerPort = 6274;
-
     /// <summary>
     /// Adds a MCPInspector resource to the application model. A container is used for local development.
     /// </summary>
@@ -39,7 +37,7 @@ public static class MCPInspectorBuilderExtensions
         return builder.AddResource(server);
     }
 
-    public static IResourceBuilder<MCPInspectorResource> WithSSE(
+    public static IResourceBuilder<MCPInspectorResource> WithMcp(
         this IResourceBuilder<MCPInspectorResource> builder,
         IResourceBuilder<ProjectResource> project
     )
@@ -69,7 +67,15 @@ public static class MCPInspectorBuilderExtensions
                 env: "CLIENT_PORT",
                 name: "client"
             )
-            .WithUrlForEndpoint("client", u => u.DisplayText = "MCP Inspector")
+            .WithUrlForEndpoint(
+                "client",
+                u =>
+                {
+                    u.DisplayText = "MCP Inspector ⚙️";
+                    u.Url =
+                        $"{u.Url}?transport=streamable-http&serverUrl={project.Resource.GetEndpoint("http").Url}";
+                }
+            )
             .WithUrlForEndpoint("server-proxy", u => u.DisplayText = "Server Proxy")
             .WaitForCompletion(nodeBuild)
             .ExcludeFromManifest();
@@ -99,7 +105,7 @@ public static class MCPInspectorBuilderExtensions
         var outputDirectory = Path.GetDirectoryName(
             System.Reflection.Assembly.GetExecutingAssembly().Location
         );
-        IResourceBuilder<NodeAppResource>? nodeBuild = TryBuildInspector(builder, outputDirectory);
+        var nodeBuild = TryBuildInspector(builder, outputDirectory);
 
         var node = builder
             .ApplicationBuilder.AddNpmApp(
@@ -183,9 +189,7 @@ public static class MCPInspectorBuilderExtensions
             builder.ApplicationBuilder.Eventing.Subscribe<BeforeResourceStartedEvent>(
                 nodeBuild.Resource,
                 async (@event, cancellationToken) =>
-                {
-                    await NpmInstallAsync(outputDirectory!, @event.Services, nodeBuild);
-                }
+                    await NpmInstallAsync(outputDirectory!, @event.Services, nodeBuild)
             );
         }
 
@@ -233,14 +237,14 @@ public static class MCPInspectorBuilderExtensions
             {
                 if (!string.IsNullOrEmpty(e.Data))
                 {
-                    logger.LogInformation(e.Data);
+                    logger.LogInformation("{Data}", e.Data);
                 }
             };
             process.ErrorDataReceived += (sender, e) =>
             {
                 if (!string.IsNullOrEmpty(e.Data))
                 {
-                    logger.LogError(e.Data);
+                    logger.LogError("{Data}", e.Data);
                 }
             };
 

@@ -6,13 +6,13 @@
     "ai",
     "mcp"
   ],
-  "identity": "Nall.ModelContextProtocol.Server.Template.SSE",
-  "name": "MCP Server SSE",
-  "description": "A template for creating a new Model Context Protocol SSE server project.",
-  "shortName": "mcp-server-sse",
-  "sourceName": "MCPServerSSE",
+  "identity": "Nall.ModelContextProtocol.Server.Template.HTTP",
+  "name": "MCP Server HTTP",
+  "description": "A template for creating a new Model Context Protocol HTTP server project.",
+  "shortName": "mcp-server-http",
+  "sourceName": "MCPServerHTTP",
   "preferNameDirectory": true,
-  "defaultName": "MCPServerSSE",
+  "defaultName": "MCPServerHTTP",
   "tags": {
     "language": "C#",
     "type": "project"

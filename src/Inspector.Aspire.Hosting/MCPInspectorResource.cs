@@ -1,6 +1,6 @@
-using Aspire.Hosting.ApplicationModel;
-
 namespace Aspire.Hosting;
+
+using Aspire.Hosting.ApplicationModel;
 
 /// <summary>
 /// A resource that represents a PostgreSQL container.
@@ -24,9 +24,10 @@ public class MCPInspectorResource
     )
         : base(name)
     {
-        PrimaryEndpoint = new(this, PrimaryEndpointName);
-        ServerPort = serverPort;
-        ClientPort = clientPort;
+        this.PrimaryEndpoint = new(this, PrimaryEndpointName);
+        this.ServerPort = serverPort;
+        this.ClientPort = clientPort;
+        this.Tag = tag;
     }
 
     /// <summary>
@@ -36,5 +37,5 @@ public class MCPInspectorResource
     public int? ServerPort { get; }
     public int? ClientPort { get; }
     public string? Tag { get; set; }
-    public string BaseName { get; init; }
+    public required string BaseName { get; init; }
 }
