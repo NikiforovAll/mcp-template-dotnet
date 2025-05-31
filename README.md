@@ -38,12 +38,12 @@ dotnet new list mcp
 # Template Name      Short Name         Language  Tags
 # -----------------  -----------------  --------  -------------
 # MCP Server         mcp-server         [C#]      dotnet/ai/mcp
-# MCP Server SSE     mcp-server-sse     [C#]      dotnet/ai/mcp
+# MCP Server HTTP    mcp-server-http    [C#]      dotnet/ai/mcp
 # MCP Server Hybrid  mcp-server-hybrid  [C#]      dotnet/ai/mcp
 ```
 
 > [!TIP]
-> Practically, you want to switch between modes, so I recommend using the `mcp-server-hybrid` template. It allows you to run the server in both *Stdio* and *SSE* modes.
+> Practically, you want to switch between modes, so I recommend using the `mcp-server-hybrid` template. It allows you to run the server in both *Stdio* and *HTTP* modes.
 
 Verify output:
 
@@ -147,15 +147,15 @@ builder.AddMCPInspector().WithStdio<Projects.MCPServer>();
 builder.Build().Run();
 ```
 
-### In `SSE` mode
+### In `HTTP` mode
 
 In `AppHost/Program.cs`:
 
 ```csharp
 var builder = DistributedApplication.CreateBuilder(args);
 
-var mcp = builder.AddProject<Projects.MCPServerSSE>("server");
-builder.AddMCPInspector().WithSSE(mcp);
+var mcp = builder.AddProject<Projects.MCPServerRemote>("server");
+builder.AddMCPInspector().WithMcp(mcp);
 
 builder.Build().Run();
 ```

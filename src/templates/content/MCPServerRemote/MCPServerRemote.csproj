@@ -17,8 +17,8 @@
 
   <PropertyGroup Label="Package">
     <Product>MCPServerSSE</Product>
-    <Description></Description>
-    <PackageTags></PackageTags>
+    <Description>MCP Server in SSE mode</Description>
+    <PackageTags>mcp;template;dotnet</PackageTags>
   </PropertyGroup>
 
   <!-- Uncomment to enable container publishing - https://learn.microsoft.com/en-us/dotnet/core/containers/sdk-publish -->
@@ -30,9 +30,9 @@
   </PropertyGroup> -->
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.4" />
-    <PackageReference Include="ModelContextProtocol" Version="0.1.0-preview.12" />
-    <PackageReference Include="ModelContextProtocol.AspNetCore" Version="0.1.0-preview.12" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.5" />
+    <PackageReference Include="ModelContextProtocol" Version="0.2.0-preview.2" />
+    <PackageReference Include="ModelContextProtocol.AspNetCore" Version="0.2.0-preview.2" />
   </ItemGroup>
 
   <ItemGroup>

@@ -14,10 +14,9 @@
     <PackageReference Include="Aspire.Hosting.AppHost" Version="9.3.0" />
   </ItemGroup>
 
-
   <ItemGroup>
     <ProjectReference Include="..\..\src\Inspector.Aspire.Hosting\Inspector.Aspire.Hosting.csproj" IsAspireProjectResource="false" />
-    <ProjectReference Include="..\..\src\templates\content\MCPServer\MCPServer.csproj" />
+    <ProjectReference Include="..\..\src\templates\content\MCPServerRemote\MCPServerRemote.csproj" />
   </ItemGroup>
 
 </Project>
