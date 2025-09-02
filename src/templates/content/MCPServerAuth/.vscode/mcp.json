@@ -1,0 +1,9 @@
+{
+  "servers": {
+    "echo-mcp": {
+      "url": "https://localhost:7000",
+      "type": "http"
+    }
+  },
+  "inputs": []
+}

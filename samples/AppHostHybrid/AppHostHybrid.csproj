@@ -11,13 +11,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Aspire.Hosting.AppHost" Version="9.3.0" />
+    <PackageReference Include="Aspire.Hosting.AppHost" Version="9.4.1" />
   </ItemGroup>
 
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Inspector.Aspire.Hosting\Inspector.Aspire.Hosting.csproj"
-      IsAspireProjectResource="false" />
+    <ProjectReference Include="..\..\src\Inspector.Aspire.Hosting\Inspector.Aspire.Hosting.csproj" IsAspireProjectResource="false" />
     <ProjectReference Include="..\..\src\templates\content\MCPServerHybrid\MCPServerHybrid.csproj" />
   </ItemGroup>
 

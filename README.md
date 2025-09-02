@@ -27,6 +27,7 @@ This repository contains a [template](https://www.nuget.org/packages/Nall.ModelC
 
 ```bash
 dotnet new install Nall.ModelContextProtocol.Template
+# dotnet new install ./Artefact/Nall.ModelContextProtocol.Template
 ```
 
 Verify installation:
@@ -37,9 +38,12 @@ dotnet new list mcp
 
 # Template Name      Short Name         Language  Tags
 # -----------------  -----------------  --------  -------------
-# MCP Server         mcp-server         [C#]      dotnet/ai/mcp
-# MCP Server HTTP    mcp-server-http    [C#]      dotnet/ai/mcp
-# MCP Server Hybrid  mcp-server-hybrid  [C#]      dotnet/ai/mcp
+# Template Name         Short Name            Language  Tags
+# --------------------  --------------------  --------  -------------
+# MCP Server            mcp-server            [C#]      dotnet/ai/mcp
+# MCP Server HTTP       mcp-server-http       [C#]      dotnet/ai/mcp
+# MCP Server HTTP Auth  mcp-server-http-auth  [C#]      dotnet/ai/mcp
+# MCP Server Hybrid     mcp-server-hybrid     [C#]      dotnet/ai/mcp
 ```
 
 > [!TIP]

@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json.schemastore.org/template",
+  "author": "Oleksii Nikiforov",
+  "classifications": [
+    "dotnet",
+    "ai",
+    "mcp"
+  ],
+  "identity": "Nall.ModelContextProtocol.Server.Template.HTTP.Auth",
+  "name": "MCP Server HTTP Auth",
+  "description": "A template for creating a new Model Context Protocol HTTP server project with authentication.",
+  "shortName": "mcp-server-http-auth",
+  "sourceName": "MCPServerAuth",
+  "preferNameDirectory": true,
+  "defaultName": "MCPServerAuth",
+  "tags": {
+    "language": "C#",
+    "type": "project"
+  },
+  "guids": [],
+  "postActions": [],
+  "symbols": {},
+  "sources": []
+}
