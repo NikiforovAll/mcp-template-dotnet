@@ -1,5 +1,9 @@
 {
     "[csharp]": {
         "editor.defaultFormatter": "csharpier.csharpier-vscode"
-    }
+    },
+    "cSpell.words": [
+        "abbrs",
+        "mcpserver"
+    ]
 }
