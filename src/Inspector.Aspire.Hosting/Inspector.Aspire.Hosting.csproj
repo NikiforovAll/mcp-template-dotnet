@@ -16,8 +16,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Aspire.Hosting" Version="9.4.1" />
-    <PackageReference Include="Aspire.Hosting.NodeJS" Version="9.3.0" />
+    <PackageReference Include="Aspire.Hosting" Version="9.5.0" />
+    <PackageReference Include="Aspire.Hosting.NodeJS" Version="9.5.0" />
   </ItemGroup>
 
   <!-- https://github.com/NuGet/Home/issues/8843 -->

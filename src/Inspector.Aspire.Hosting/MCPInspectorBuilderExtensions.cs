@@ -87,7 +87,7 @@ public static class MCPInspectorBuilderExtensions
             {
                 ResourceType = "MCP Inspector",
                 // State = KnownResourceStates.Hidden,
-                State = KnownResourceStates.Hidden,
+                IsHidden = true,
                 Properties = [],
             }
         );
@@ -147,7 +147,7 @@ public static class MCPInspectorBuilderExtensions
             {
                 ResourceType = "MCP Inspector",
                 // State = KnownResourceStates.Hidden,
-                State = KnownResourceStates.Hidden,
+                IsHidden = true,
                 Properties = [],
             }
         );
