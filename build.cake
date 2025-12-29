@@ -32,7 +32,6 @@ Task("Build")
         DotNetBuild(".", new DotNetBuildSettings
         {
             Configuration = configuration,
-            OutputDirectory = artefactsDirectory,
         });
     });
 
