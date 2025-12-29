@@ -16,4 +16,7 @@
     <Project Path="src/templates/content/MCPServerHybrid/MCPServerHybrid.csproj" />
     <Project Path="src/templates/templates.csproj" />
   </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Mcp.Template.Tests/Mcp.Template.Tests.csproj" />
+  </Folder>
 </Solution>

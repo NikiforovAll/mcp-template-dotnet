@@ -1,0 +1,22 @@
+# Test project specific settings
+# Inherits from root .editorconfig
+
+##########################################
+# Test-specific rule suppressions
+##########################################
+
+[*.cs]
+
+# CA1707: Identifiers should not contain underscores
+# Suppressed: Test methods use Method_Scenario_Expected naming convention
+# Example: MCPServer_ListTools_ReturnsEchoTool
+dotnet_diagnostic.CA1707.severity = none
+
+# CA1001: Types that own disposable fields should be disposable
+# Suppressed: Test classes use xUnit's IAsyncLifetime.DisposeAsync() for cleanup
+# instead of implementing IDisposable directly
+dotnet_diagnostic.CA1001.severity = none
+
+# CA1852: Type can be sealed because it has no subtypes
+# Suppressed: Test helper types (records, classes) don't need sealing
+dotnet_diagnostic.CA1852.severity = none
