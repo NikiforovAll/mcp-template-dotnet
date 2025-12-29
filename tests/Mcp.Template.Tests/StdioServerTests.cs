@@ -8,7 +8,7 @@ namespace Mcp.Template.Tests;
 /// </summary>
 public class StdioServerTests : IAsyncLifetime
 {
-    private static readonly string SolutionRoot = GetSolutionRoot();
+    private static readonly string SolutionRoot = TestHelpers.GetSolutionRoot();
 
     public Task InitializeAsync() => Task.CompletedTask;
 
@@ -137,23 +137,5 @@ public class StdioServerTests : IAsyncLifetime
         var textContent = result.Content.OfType<TextContentBlock>().FirstOrDefault();
         Assert.NotNull(textContent);
         Assert.Contains("hello test", textContent.Text);
-    }
-
-    private static string GetSolutionRoot()
-    {
-        // Path from bin/Debug/net10.0 -> solution root (5 levels up)
-        // tests/Mcp.Template.Tests/bin/Debug/net10.0 -> solution
-        var assemblyDir = AppContext.BaseDirectory;
-        var current = new DirectoryInfo(assemblyDir);
-
-        // Walk up looking for .sln or .slnx file (new XML solution format)
-        while (current != null)
-        {
-            if (current.GetFiles("*.sln").Length > 0 || current.GetFiles("*.slnx").Length > 0)
-                return current.FullName;
-            current = current.Parent;
-        }
-
-        throw new InvalidOperationException($"Could not find solution root from {assemblyDir}");
     }
 }
