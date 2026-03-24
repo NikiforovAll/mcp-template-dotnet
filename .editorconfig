@@ -241,7 +241,7 @@ csharp_style_prefer_range_operator = true:warning
 # https://docs.microsoft.com/visualstudio/ide/editorconfig-language-conventions#miscellaneous-preferences
 csharp_style_deconstructed_variable_declaration = true:warning
 csharp_style_pattern_local_over_anonymous_function = true:warning
-csharp_using_directive_placement = inside_namespace:warning
+csharp_using_directive_placement = outside_namespace:warning
 csharp_prefer_static_local_function = true:warning
 csharp_prefer_simple_using_statement = true:suggestion
 dotnet_diagnostic.IDE0063.severity = suggestion
@@ -312,6 +312,9 @@ csharp_preserve_single_line_blocks = true
 
 # camel_case_style - Define the camelCase style
 dotnet_naming_style.camel_case_style.capitalization = camel_case
+# prefix_camel_case_with_underscore_style - Private fields use _camelCase
+dotnet_naming_style.prefix_camel_case_with_underscore_style.capitalization = camel_case
+dotnet_naming_style.prefix_camel_case_with_underscore_style.required_prefix = _
 # pascal_case_style - Define the PascalCase style
 dotnet_naming_style.pascal_case_style.capitalization = pascal_case
 # first_upper_style - The first character must start with an upper-case character
@@ -396,12 +399,12 @@ dotnet_naming_rule.stylecop_instance_fields_must_be_private_rule.symbols        
 dotnet_naming_rule.stylecop_instance_fields_must_be_private_rule.style                 = disallowed_style
 dotnet_naming_rule.stylecop_instance_fields_must_be_private_rule.severity              = error
 
-# Private fields must be camelCase
+# Private fields must be _camelCase
 # https://github.com/DotNetAnalyzers/StyleCopAnalyzers/blob/master/documentation/SA1306.md
 dotnet_naming_symbols.stylecop_private_fields_group.applicable_accessibilities = private
 dotnet_naming_symbols.stylecop_private_fields_group.applicable_kinds           = field
 dotnet_naming_rule.stylecop_private_fields_must_be_camel_case_rule.symbols     = stylecop_private_fields_group
-dotnet_naming_rule.stylecop_private_fields_must_be_camel_case_rule.style       = camel_case_style
+dotnet_naming_rule.stylecop_private_fields_must_be_camel_case_rule.style       = prefix_camel_case_with_underscore_style
 dotnet_naming_rule.stylecop_private_fields_must_be_camel_case_rule.severity    = warning
 
 # Local variables must be camelCase

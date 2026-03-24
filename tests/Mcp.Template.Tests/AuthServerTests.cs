@@ -20,22 +20,22 @@ public class AuthServerTests : IAsyncLifetime
 
     public async Task DisposeAsync()
     {
-        _httpClient?.Dispose();
+        this._httpClient?.Dispose();
 
-        if (_serverProcess is { HasExited: false })
+        if (this._serverProcess is { HasExited: false })
         {
-            _serverProcess.Kill(entireProcessTree: true);
-            await _serverProcess.WaitForExitAsync();
+            this._serverProcess.Kill(entireProcessTree: true);
+            await this._serverProcess.WaitForExitAsync();
         }
 
-        _serverProcess?.Dispose();
+        this._serverProcess?.Dispose();
     }
 
     [Fact]
     public async Task MCPServerAuth_WithoutCredentials_Returns401()
     {
         // Arrange
-        _port = GetAvailablePort();
+        this._port = GetAvailablePort();
         var projectPath = Path.Combine(
             SolutionRoot,
             "src",
@@ -44,10 +44,10 @@ public class AuthServerTests : IAsyncLifetime
             "MCPServerAuth"
         );
 
-        _serverProcess = StartServer(projectPath, _port);
-        _httpClient = new HttpClient { BaseAddress = new Uri($"http://localhost:{_port}") };
+        this._serverProcess = StartServer(projectPath, this._port);
+        this._httpClient = new HttpClient { BaseAddress = new Uri($"http://localhost:{this._port}") };
 
-        await WaitForServerAsync(_httpClient, TimeSpan.FromSeconds(30));
+        await WaitForServerAsync(this._httpClient, TimeSpan.FromSeconds(30));
 
         // MCP initialize request (JSON-RPC 2.0) without auth
         var initRequest = new
@@ -78,7 +78,7 @@ public class AuthServerTests : IAsyncLifetime
         );
 
         // Act
-        var response = await _httpClient.SendAsync(request);
+        var response = await this._httpClient.SendAsync(request);
 
         // Assert - Should return 401 Unauthorized (no auth token provided)
         Assert.Equal(HttpStatusCode.Unauthorized, response.StatusCode);
@@ -88,7 +88,7 @@ public class AuthServerTests : IAsyncLifetime
     public async Task MCPServerAuth_WithoutCredentials_ReturnsWwwAuthenticate()
     {
         // Arrange
-        _port = GetAvailablePort();
+        this._port = GetAvailablePort();
         var projectPath = Path.Combine(
             SolutionRoot,
             "src",
@@ -97,10 +97,10 @@ public class AuthServerTests : IAsyncLifetime
             "MCPServerAuth"
         );
 
-        _serverProcess = StartServer(projectPath, _port);
-        _httpClient = new HttpClient { BaseAddress = new Uri($"http://localhost:{_port}") };
+        this._serverProcess = StartServer(projectPath, this._port);
+        this._httpClient = new HttpClient { BaseAddress = new Uri($"http://localhost:{this._port}") };
 
-        await WaitForServerAsync(_httpClient, TimeSpan.FromSeconds(30));
+        await WaitForServerAsync(this._httpClient, TimeSpan.FromSeconds(30));
 
         var initRequest = new
         {
@@ -130,7 +130,7 @@ public class AuthServerTests : IAsyncLifetime
         );
 
         // Act
-        var response = await _httpClient.SendAsync(request);
+        var response = await this._httpClient.SendAsync(request);
 
         // Assert - Should include WWW-Authenticate header with MCP auth scheme
         Assert.True(
@@ -189,7 +189,7 @@ public class AuthServerTests : IAsyncLifetime
     {
         using var listener = new System.Net.Sockets.TcpListener(IPAddress.Loopback, 0);
         listener.Start();
-        var port = ((System.Net.IPEndPoint)listener.LocalEndpoint).Port;
+        var port = ((IPEndPoint)listener.LocalEndpoint).Port;
         listener.Stop();
         return port;
     }

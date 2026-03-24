@@ -1,6 +1,6 @@
-namespace Aspire.Hosting;
-
 using Aspire.Hosting.ApplicationModel;
+
+namespace Aspire.Hosting;
 
 /// <summary>
 /// A resource that represents a PostgreSQL container.
