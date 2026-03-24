@@ -10,7 +10,9 @@ internal static class TestHelpers
         while (current != null)
         {
             if (current.GetFiles("*.sln").Length > 0 || current.GetFiles("*.slnx").Length > 0)
+            {
                 return current.FullName;
+            }
             current = current.Parent;
         }
 

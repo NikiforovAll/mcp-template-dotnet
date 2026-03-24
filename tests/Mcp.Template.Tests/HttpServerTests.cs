@@ -20,22 +20,22 @@ public class HttpServerTests : IAsyncLifetime
 
     public async Task DisposeAsync()
     {
-        _httpClient?.Dispose();
+        this._httpClient?.Dispose();
 
-        if (_serverProcess is { HasExited: false })
+        if (this._serverProcess is { HasExited: false })
         {
-            _serverProcess.Kill(entireProcessTree: true);
-            await _serverProcess.WaitForExitAsync();
+            this._serverProcess.Kill(entireProcessTree: true);
+            await this._serverProcess.WaitForExitAsync();
         }
 
-        _serverProcess?.Dispose();
+        this._serverProcess?.Dispose();
     }
 
     [Fact]
     public async Task MCPServerRemote_StreamableHttp_AcceptsInitialize()
     {
         // Arrange
-        _port = GetAvailablePort();
+        this._port = GetAvailablePort();
         var projectPath = Path.Combine(
             SolutionRoot,
             "src",
@@ -44,10 +44,10 @@ public class HttpServerTests : IAsyncLifetime
             "MCPServerRemote"
         );
 
-        _serverProcess = StartServer(projectPath, _port);
-        _httpClient = new HttpClient { BaseAddress = new Uri($"http://localhost:{_port}") };
+        this._serverProcess = StartServer(projectPath, this._port);
+        this._httpClient = new HttpClient { BaseAddress = new Uri($"http://localhost:{this._port}") };
 
-        await WaitForServerAsync(_httpClient, TimeSpan.FromSeconds(30));
+        await WaitForServerAsync(this._httpClient, TimeSpan.FromSeconds(30));
 
         // MCP initialize request (JSON-RPC 2.0)
         var initRequest = new
@@ -78,7 +78,7 @@ public class HttpServerTests : IAsyncLifetime
             new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("text/event-stream")
         );
 
-        var response = await _httpClient.SendAsync(request);
+        var response = await this._httpClient.SendAsync(request);
 
         // Assert - Server accepts and processes the request
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
@@ -92,7 +92,7 @@ public class HttpServerTests : IAsyncLifetime
     public async Task MCPServerRemote_StreamableHttp_ListsTools()
     {
         // Arrange
-        _port = GetAvailablePort();
+        this._port = GetAvailablePort();
         var projectPath = Path.Combine(
             SolutionRoot,
             "src",
@@ -101,10 +101,10 @@ public class HttpServerTests : IAsyncLifetime
             "MCPServerRemote"
         );
 
-        _serverProcess = StartServer(projectPath, _port);
-        _httpClient = new HttpClient { BaseAddress = new Uri($"http://localhost:{_port}") };
+        this._serverProcess = StartServer(projectPath, this._port);
+        this._httpClient = new HttpClient { BaseAddress = new Uri($"http://localhost:{this._port}") };
 
-        await WaitForServerAsync(_httpClient, TimeSpan.FromSeconds(30));
+        await WaitForServerAsync(this._httpClient, TimeSpan.FromSeconds(30));
 
         // Initialize first
         var initRequest = new
@@ -134,7 +134,7 @@ public class HttpServerTests : IAsyncLifetime
             new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("text/event-stream")
         );
 
-        var initResponse = await _httpClient.SendAsync(initReq);
+        var initResponse = await this._httpClient.SendAsync(initReq);
         initResponse.Headers.TryGetValues("mcp-session-id", out var sessionIds);
         var sessionId = sessionIds?.FirstOrDefault();
 
@@ -160,10 +160,12 @@ public class HttpServerTests : IAsyncLifetime
             new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("text/event-stream")
         );
         if (sessionId is not null)
+        {
             request.Headers.Add("mcp-session-id", sessionId);
+        }
 
         // Act
-        var response = await _httpClient.SendAsync(request);
+        var response = await this._httpClient.SendAsync(request);
 
         // Assert
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
@@ -216,7 +218,7 @@ public class HttpServerTests : IAsyncLifetime
     {
         using var listener = new System.Net.Sockets.TcpListener(IPAddress.Loopback, 0);
         listener.Start();
-        var port = ((System.Net.IPEndPoint)listener.LocalEndpoint).Port;
+        var port = ((IPEndPoint)listener.LocalEndpoint).Port;
         listener.Stop();
         return port;
     }

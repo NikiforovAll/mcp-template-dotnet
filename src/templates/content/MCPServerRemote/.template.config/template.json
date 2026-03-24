@@ -10,15 +10,19 @@
   "name": "MCP Server HTTP",
   "description": "A template for creating a new Model Context Protocol HTTP server project.",
   "shortName": "mcp-server-http",
-  "sourceName": "MCPServerHTTP",
+  "sourceName": "MCPServerRemote",
   "preferNameDirectory": true,
-  "defaultName": "MCPServerHTTP",
+  "defaultName": "MCPServerRemote",
   "tags": {
     "language": "C#",
     "type": "project"
   },
-  "guids": [],
-  "postActions": [],
-  "symbols": {},
-  "sources": []
+  "postActions": [
+    {
+      "actionId": "210D431B-A78B-4D2F-B762-4ED3E3EA9025",
+      "continueOnError": true,
+      "description": "Restore NuGet packages",
+      "manualInstructions": [{ "text": "Run 'dotnet restore'" }]
+    }
+  ]
 }

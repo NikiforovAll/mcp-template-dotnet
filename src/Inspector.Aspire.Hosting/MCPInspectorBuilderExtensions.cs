@@ -1,10 +1,10 @@
-namespace Aspire.Hosting;
-
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using Aspire.Hosting.ApplicationModel;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+
+namespace Aspire.Hosting;
 
 /// <summary>
 /// Provides extension methods for adding MCPInspector resources to an <see cref="IDistributedApplicationBuilder"/>.

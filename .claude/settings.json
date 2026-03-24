@@ -1,0 +1,19 @@
+{
+  "enabledPlugins": {
+    "dotnet-template-engine@dotnet-agent-skills": true
+  },
+  "hooks": {
+    "Stop": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR/scripts/analyzers.sh\"",
+            "timeout": 120
+          }
+        ]
+      }
+    ]
+  }
+}

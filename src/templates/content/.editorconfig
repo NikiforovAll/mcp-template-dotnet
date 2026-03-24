@@ -1,0 +1,22 @@
+# Template content — starter projects should have relaxed style rules
+# Inherits from root .editorconfig but suppresses strict conventions
+
+[*.cs]
+
+# Templates are simple starter code — don't enforce strict style
+dotnet_analyzer_diagnostic.severity = suggestion
+
+dotnet_style_qualification_for_field = false:silent
+dotnet_style_qualification_for_property = false:silent
+dotnet_style_qualification_for_method = false:silent
+dotnet_style_qualification_for_event = false:silent
+
+csharp_style_namespace_declarations = file_scoped:silent
+
+# Suppress naming rules for template simplicity
+dotnet_diagnostic.IDE0009.severity = none
+dotnet_diagnostic.IDE0065.severity = none
+dotnet_diagnostic.IDE1006.severity = none
+dotnet_diagnostic.IDE0011.severity = none
+dotnet_diagnostic.CA1050.severity = none
+dotnet_diagnostic.CA1873.severity = none

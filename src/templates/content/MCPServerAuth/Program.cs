@@ -23,8 +23,8 @@ builder
 
         options.ResourceMetadata = new ProtectedResourceMetadata
         {
-            Resource = GetMcpServerUrl(),
-            AuthorizationServers = [GetAuthorizationServerUrl(identityOptions)],
+            Resource = GetMcpServerUrl().ToString(),
+            AuthorizationServers = [GetAuthorizationServerUrl(identityOptions).ToString()],
             ScopesSupported = [$"api://{identityOptions.ClientId}/Mcp.User"],
         };
     })
@@ -46,4 +46,6 @@ app.Run();
 static Uri GetAuthorizationServerUrl(MicrosoftIdentityOptions identityOptions) =>
     new($"{identityOptions.Instance?.TrimEnd('/')}/{identityOptions.TenantId}/v2.0");
 
-Uri GetMcpServerUrl() => builder.Configuration.GetValue<Uri>("McpServerUrl") ?? throw new InvalidOperationException("McpServerUrl is not configured.");
+Uri GetMcpServerUrl() =>
+    builder.Configuration.GetValue<Uri>("McpServerUrl")
+    ?? throw new InvalidOperationException("McpServerUrl is not configured.");
