@@ -15,7 +15,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Aspire.Hosting" Version="13.1.0" />
+    <PackageReference Include="Aspire.Hosting" Version="13.2.0" />
     <PackageReference Include="Aspire.Hosting.NodeJS" Version="9.5.2" />
   </ItemGroup>
 
